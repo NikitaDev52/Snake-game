@@ -1,6 +1,5 @@
-package ru.project.GameInterface;
+package ru.project.Interface;
 
-import java.awt.*;
 import java.io.IOException;
 
 public interface WindowGame {
