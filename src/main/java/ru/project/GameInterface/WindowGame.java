@@ -4,5 +4,5 @@ import java.awt.*;
 import java.io.IOException;
 
 public interface WindowGame {
-    void createWindow(String imgBackgroungPath, String imgSnakePath, String imgApplePath) throws IOException;
+    void createWindow() throws IOException;
 }
