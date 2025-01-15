@@ -1,5 +1,6 @@
 package ru.project.Interface;
 
+import ru.project.Logics.Apple;
 import ru.project.Logics.SnakePanel;
 import ru.project.Resources;
 
@@ -14,6 +15,7 @@ import java.io.IOException;
 public class SnakeWindowGame implements WindowGame {
     private final BufferedImage imgBackgroung = Resources.imgBackgroung;
     private final SnakePanel snake = new SnakePanel();
+    private final Apple apple = new Apple(Resources.imgBackgroung.getWidth(), Resources.imgBackgroung.getHeight());
 
     public SnakeWindowGame() throws IOException {
     }
@@ -31,6 +33,8 @@ public class SnakeWindowGame implements WindowGame {
                     g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
 
                     snake.paintSnake(g);
+
+                    apple.paintApple(g);
                 }
             };
             frame.add(panel);
@@ -50,11 +54,18 @@ public class SnakeWindowGame implements WindowGame {
             });
 
             // Таймер для обновления игры
-            Timer timer = new Timer(100, e -> {
-                snake.move();
-                panel.repaint();
-            });
+        Timer timer = new Timer(100, e -> {
+            snake.move();
 
-            timer.start();
+            // Проверяем, съела ли змейка яблоко
+            Point appleGridPosition = new Point(apple.getPosition().x / snake.getTileSize(), apple.getPosition().y / snake.getTileSize());
+            if (snake.getHead().equals(appleGridPosition)) {
+                snake.grow();
+                apple.generateNewApplePos(Resources.imgBackgroung.getWidth(), Resources.imgBackgroung.getHeight());
+            }
+            panel.repaint();
+        });
+
+        timer.start();
     }
 }
