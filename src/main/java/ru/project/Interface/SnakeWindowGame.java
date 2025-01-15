@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class WindowGameImpl implements WindowGame {
+public class SnakeWindowGame implements WindowGame {
     private final String imgBackgroungPath = "src/main/resources/IMGs/фон для змейки.png";
     private final SnakePanel snake = new SnakePanel();
     @Override
@@ -47,7 +47,7 @@ public class WindowGameImpl implements WindowGame {
             });
 
             // Таймер для обновления игры
-            Timer timer = new Timer(150, e -> {
+            Timer timer = new Timer(100, e -> {
                 snake.move();
                 panel.repaint();
             });
