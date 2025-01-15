@@ -51,6 +51,18 @@ public class SnakePanel {
         System.exit(0);
     }
 
+    public Point getHead() {
+        return segments.get(0);
+    }
+
+    public void grow() {
+        segments.add(new Point(segments.get(segments.size() - 1)));
+    }
+
+    public int getTileSize() {
+        return tileSize;
+    }
+
     // Метод для установки нового направления
     public void setDirection(String direction) {
         if ((direction.equals("UP") && this.direction.equals("DOWN")) || direction.equals("DOWN") && this.direction.equals("UP")) {
