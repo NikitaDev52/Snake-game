@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class SnakePanel {
     private final ArrayList<Point> segments;
-    private final int tileSize = 20;
     private String direction = "RIGHT";
     public SnakePanel() throws IOException {
         this.segments = new ArrayList<>();
@@ -21,7 +20,7 @@ public class SnakePanel {
         g.setColor(Color.GREEN);
 
         for (Point segment : segments) {
-            g.fillRect(segment.x * tileSize, segment.y * tileSize, tileSize, tileSize);
+            g.fillRect(segment.x * Resources.SIZE_OBJ, segment.y * Resources.SIZE_OBJ, Resources.SIZE_OBJ, Resources.SIZE_OBJ);
         }
     }
 
@@ -36,9 +35,9 @@ public class SnakePanel {
         };
 
         if (newHead.x < 0 || newHead.y < 0 ||
-                newHead.x * tileSize >=  Resources.imgBackgroung.getWidth()||
-                newHead.y * tileSize >= Resources.imgBackgroung.getHeight()) {
-            endGame();
+                newHead.x * Resources.SIZE_OBJ >=  Resources.IMG_BACKGROUNG.getWidth()||
+                newHead.y * Resources.SIZE_OBJ >= Resources.IMG_BACKGROUNG.getHeight()) {
+            endGame("Ты проиграл :(");
             return;
         }
 
@@ -46,8 +45,8 @@ public class SnakePanel {
         segments.remove(segments.size() - 1);
     }
 
-    private void endGame() {
-        JOptionPane.showMessageDialog(null, "Game Over!", "Snake Game", JOptionPane.INFORMATION_MESSAGE);
+    public void endGame(String message) {
+        JOptionPane.showMessageDialog(null, "Game over! " + message, "Snake Game", JOptionPane.INFORMATION_MESSAGE);
         System.exit(0);
     }
 
@@ -60,7 +59,11 @@ public class SnakePanel {
     }
 
     public int getTileSize() {
-        return tileSize;
+        return Resources.SIZE_OBJ;
+    }
+
+    public int getSnakeSize() {
+        return segments.size();
     }
 
     // Метод для установки нового направления
