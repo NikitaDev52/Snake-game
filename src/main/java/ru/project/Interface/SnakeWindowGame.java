@@ -1,6 +1,7 @@
 package ru.project.Interface;
 
 import ru.project.Logics.SnakePanel;
+import ru.project.Resources;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,20 +12,22 @@ import java.io.File;
 import java.io.IOException;
 
 public class SnakeWindowGame implements WindowGame {
-    private final String imgBackgroungPath = "src/main/resources/IMGs/фон для змейки.png";
+    private final BufferedImage imgBackgroung = Resources.imgBackgroung;
     private final SnakePanel snake = new SnakePanel();
+
+    public SnakeWindowGame() throws IOException {
+    }
+
     @Override
     public void createWindow() {
-        try {
-            BufferedImage imageBackGroung = ImageIO.read(new File(imgBackgroungPath));
             JFrame frame = new JFrame("Snake game");
-            frame.setSize(imageBackGroung.getWidth(), imageBackGroung.getHeight());
+            frame.setSize(Resources.imgBackgroung.getWidth(), Resources.imgBackgroung.getHeight());
             // фон для змейки
             JPanel panel = new JPanel() {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
-                    Image backgroundImage = Toolkit.getDefaultToolkit().getImage(imgBackgroungPath);
+                    Image backgroundImage = Toolkit.getDefaultToolkit().getImage(Resources.imgBackgroungPath);
                     g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
 
                     snake.paintSnake(g);
@@ -53,8 +56,5 @@ public class SnakeWindowGame implements WindowGame {
             });
 
             timer.start();
-        } catch (IOException e) {
-            throw new RuntimeException("Не можем найти или открыть изображение :( , стек ошибки: " + e);
-        }
     }
 }
